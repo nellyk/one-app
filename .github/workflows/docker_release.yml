@@ -1,0 +1,35 @@
+name: One App Docker Release
+on:
+  push:
+    tags:
+      - '*'
+  repository_dispatch:
+    types: [docker_release]
+jobs:
+  one-app-docker-release:
+    name: Build and Deploy to Docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: set tag version
+        run: echo ::set-env name=tagversion::$(echo ${GITHUB_REF:10})
+      - name: Set env
+        run: echo ::set-env name=tagversion::${{ github.event.client_payload.tag }}
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build production docker image
+        run: docker build -t prod .
+      - name: Docker push prod statics
+        run: docker cp $(docker create prod):opt/one-app/build ./one-app-statics
+      - name: Build development docker image
+        run: docker build -t dev . --target=development
+      - name: Docker push dev statics
+        run: docker cp $(docker create dev):opt/one-app/build ./one-app-statics
+      - name: Tags
+        run: |
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ github.event.client_payload.tag }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.tag }}
+      - name: Push
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ github.event.client_payload.tag }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:$tagversion

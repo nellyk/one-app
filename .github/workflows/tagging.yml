@@ -1,0 +1,37 @@
+name: Tagging release
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
+jobs:
+  tagging-release:
+    name: Tagging release
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged && github.head_ref == 'release-automated' && github.base_ref == 'master'
+    steps:
+      - uses: actions/checkout@v2
+      - name: get commit message
+        shell: bash
+        run: |
+          echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
+          echo $commitmsg
+      - name: get tag version
+        run: |
+          echo ::set-env name=tagversion::$( sed -e 's#.*:\(\)#\1#' <<< ${commitmsg} )
+          echo $tagversion
+      - name: set tag version
+        run: |
+          git config --local user.email "nelly.j.kiboi@aexp.com"
+          git config --local user.name "nellyk"
+          echo ${tagversion##*( )}
+          git tag ${tagversion##*( )}
+          git push origin --tag
+      - name: Trigger Image Publishing
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PA_TOKEN }}
+          repository: ${{ github.repository }}
+          event_type: "docker_release"
+          client-payload: '{ "tag": "1.9.8" }'

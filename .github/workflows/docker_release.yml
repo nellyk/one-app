@@ -15,7 +15,7 @@ jobs:
         id: set_tag_version
         run: |
           echo ::set-output name=tagversion::$(echo $GITHUB_REF | cut -d / -f 3)
-          if [ "$pushed_tag" == "" ]; then
+          if [ "$tagversion" == "" ]; then
           echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
           fi
       - name: Docker login

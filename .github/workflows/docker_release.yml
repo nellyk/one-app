@@ -19,9 +19,7 @@ jobs:
           else
           echo ::set-output name=tagversion::$(echo $GITHUB_REF | cut -d / -f 3)
           fi
-      - name: show_tag_version
-        id: shows_tag_version
-        run: echo $tagversion
+          echo $tagversion
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build production docker image
@@ -32,9 +30,9 @@ jobs:
         run: docker build -t dev . --target=development
       - name: Tags
         run: |
-          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${tagversion}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${tagversion}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}
       - name: Push
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/one-app:${tagversion}
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${tagversion}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}

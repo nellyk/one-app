@@ -36,5 +36,5 @@ jobs:
           repository: ${{ github.repository }}
           mediaType: '{"previews": ["everest"]}'
           event_type: "one-app-docker-release"
-          env:
-            GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

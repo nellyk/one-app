@@ -14,7 +14,9 @@ jobs:
       - name: Set env
         id: set_tag_version
         run: |
-          echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
+          echo ::set-output name=tag_payload_version::${{ github.event.client_payload.tagversion }}
+          echo ::set-output name=tagversion::${tag_payload_version##*( )}
+
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build production docker image

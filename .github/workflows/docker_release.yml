@@ -14,9 +14,7 @@ jobs:
       - name: Set env
         id: set_tag_version
         run: |
-          echo ::set-output name=tag_payload_version::${{ github.event.client_payload.tagversion }}
-          echo ::set-output name=tagversion::${tag_payload_version##*( )}
-
+          echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build production docker image
@@ -29,9 +27,9 @@ jobs:
         run: docker cp $(docker create dev):opt/one-app/build ./one-app-statics
       - name: Tags
         run: |
-          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }} | xargs
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }} | xargs
       - name: Push
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }} | xargs
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }} | xargs

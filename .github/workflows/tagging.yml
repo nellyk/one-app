@@ -19,17 +19,17 @@ jobs:
           echo $commitmsg
       - name: get tag version
         run: |
-          echo ::set-env name=tagversion::$( sed -e 's#.*:\(\)#\1#' <<< ${commitmsg} )
+        echo ::set-env name=tagversion::$( sed -e 's#.*: \(\)#\1#' <<< ${commitmsg} )
           echo $tagversion
       - name: set tag version
         id: set_tag_version
         run: |
           git config --local user.email "nelly.j.kiboi@aexp.com"
           git config --local user.name "nellyk"
-          echo ${tagversion##*( )}
-          git tag ${tagversion##*( )}
+          echo ${tagversion}
+          git tag ${tagversion}
           git push origin --tag
-          echo ::set-output name=action_tag::${tagversion##*( )}
+          echo ::set-output name=action_tag::${tagversion}
       - name: Trigger Image Publishing
         uses: octokit/request-action@v2.x
         id: dispatch_one-app-docker-release

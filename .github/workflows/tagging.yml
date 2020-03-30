@@ -34,4 +34,3 @@ jobs:
           token: ${{ secrets.PA_TOKEN }}
           repository: ${{ github.repository }}
           event_type: "docker_release"
-          client-payload: '{ "tag": "1.9.8" }'

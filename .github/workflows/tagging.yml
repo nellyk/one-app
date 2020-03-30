@@ -29,8 +29,12 @@ jobs:
           git tag ${tagversion##*( )}
           git push origin --tag
       - name: Trigger Image Publishing
-        uses: peter-evans/repository-dispatch@v1
+      - uses: octokit/request-action@v2.x
+        id: dispatch_one-app-docker-release
         with:
-          token: ${{ secrets.PA_TOKEN }}
+          route: POST /repos/:repository/dispatches
           repository: ${{ github.repository }}
-          event_type: "docker_release"
+          mediaType: '{"previews": ["everest"]}'
+          event_type: "one-app-docker-release"
+          env:
+            GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

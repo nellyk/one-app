@@ -37,4 +37,4 @@ jobs:
           token: ${{ secrets.PA_TOKEN }}
           repository: ${{ github.repository }}
           event_type: "one-app-docker-release"
-          client-payload: '"tagversion": "${{ steps.set_tag_version.outputs.action_tag }}"'
+          client-payload: '"tagversion": "1.0.5"'

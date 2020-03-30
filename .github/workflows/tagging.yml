@@ -29,7 +29,7 @@ jobs:
           git tag ${tagversion##*( )}
           git push origin --tag
       - name: Trigger Image Publishing
-      - uses: octokit/request-action@v2.x
+        uses: octokit/request-action@v2.x
         id: dispatch_one-app-docker-release
         with:
           route: POST /repos/:repository/dispatches

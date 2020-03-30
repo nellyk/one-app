@@ -36,6 +36,6 @@ jobs:
           repository: ${{ github.repository }}
           mediaType: '{"previews": ["everest"]}'
           event_type: "one-app-docker-release"
-          client-payload: "tagversion": ${tagversion}
+          client-payload: '"tagversion": ${tagversion}'
         env:
           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

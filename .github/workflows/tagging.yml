@@ -39,4 +39,3 @@ jobs:
           client-payload: '{"tagversion": "${{ tagversion"}} }'
         env:
           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
-        run: "echo payload ${{ steps.dispatch_one-app-docker-release}}"

@@ -36,3 +36,4 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
           docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}
+          uses: docker/build-push-action@v1

@@ -31,10 +31,13 @@ jobs:
           git push origin --tag
           echo ::set-output name=action_tag::${tagversion##*( )}
       - name: Trigger Image Publishing
-        uses: peter-evans/repository-dispatch@v1
+        uses: octokit/request-action@v2.x
         id: dispatch_one-app-docker-release
         with:
-          token: ${{ secrets.PA_TOKEN }}
+          route: POST /repos/:repository/dispatches
           repository: ${{ github.repository }}
+          mediaType: '{"previews": ["everest"]}'
           event_type: "one-app-docker-release"
           client-payload: '{"tagversion": "${{ steps.set_tag_version.outputs.action_tag }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

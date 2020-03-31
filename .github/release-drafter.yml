@@ -10,6 +10,8 @@ categories:
       - 'bug'
   - title: '🧰 Maintenance'
     label: 'chore'
+exclude-labels:
+  - 'skip-release-drafter'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 template: |
   ## Changes

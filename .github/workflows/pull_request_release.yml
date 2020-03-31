@@ -28,11 +28,11 @@ jobs:
         uses: peter-evans/create-pull-request@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: release changes
+          commit-message: One App Release Changes
           committer: Nelly Kiboi <nellyk@users.noreply.github.com>
           title: release changes
-          body: This is an auto-generated PR with release changes
-          labels: release, automated pr
+          body: This is an auto-generated PR with One App release changes
+          labels: release, automated pr,skip-release-drafter
           reviewers: nellyk
           branch: release-automated
           base: master

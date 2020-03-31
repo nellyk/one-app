@@ -29,7 +29,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: One App Release Changes
-          committer: Nelly Kiboi <nellyk@users.noreply.github.com>
+          committer: GitHub Action <action@github.com>
           title: One App Release Changes
           body: This is an auto-generated PR with One App release changes
           labels: release, automated pr,skip-release-drafter

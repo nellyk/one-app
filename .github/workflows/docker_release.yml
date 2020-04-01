@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
       - name: Set env
         id: set_tag_version
         run: |
@@ -24,8 +29,14 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build production docker image
         run: docker build -t prod .
-      - name: Docker push prod statics
-        run: docker cp $(docker create prod):opt/one-app/build ./one-app-statics
+      - name: Extract production statics
+        run: |
+          docker cp $(docker create prod):opt/one-app/build ./one-app-statics
+          docker cp $(docker create prod):opt/one-app/one-app-statics/package.json ./one-app-statics
+      - name: Publish statics to NPM
+        run: npm publish ./one-app-statics --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Build development docker image
         run: docker build -t dev . --target=development
       - name: Tags

@@ -25,14 +25,9 @@ jobs:
       - name: Build production docker image
         run: docker build -t prod .
       - name: Docker push prod statics
-        run: docker cp $(docker create prod):opt/one-app/build ./one-app-statics
-      - name: Build development docker image
-        run: docker build -t dev . --target=development
-      - name: Tags
         run: |
-          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}
-      - name: Push
-        run: |
-          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}
+          docker cp $(docker create prod):opt/one-app/build ./one-app-statics
+          node ./scripts/generate-statics-package-json.js
+          npm publish ./one-app-statics --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

@@ -1,0 +1,17 @@
+    {
+      "skip": { "tag": true },
+      "bumpFiles": [
+      {
+        "filename": "./one-app-statics/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "package.json",
+        "type": "json"
+      },
+      {
+        "filename": "package-lock.json",
+        "type": "json"
+      }
+    ]
+    }

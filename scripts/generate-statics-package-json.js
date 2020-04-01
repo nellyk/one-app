@@ -25,7 +25,7 @@ const pathToStaticsPackageJson = path.resolve(oneAppStaticsDir, 'package.json');
 
 const writeStaticPackageJson = async () => {
   const staticsPackageJson = {
-    name: 'infoxicator/one-app-statics',
+    name: 'one-app-statics',
     version,
     description: 'One App Static Assets',
     main: 'index.js',

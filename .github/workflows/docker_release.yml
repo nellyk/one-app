@@ -24,10 +24,12 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build production docker image
         run: docker build -t prod .
-      - name: Docker push prod statics
+      - name: Extract production statics
         run: |
           docker cp $(docker create prod):opt/one-app/build ./one-app-statics
           docker cp $(docker create prod):opt/one-app/one-app-statics/package.json ./one-app-statics
-          npm publish ./one-app-statics --access public
+      - name: Publish statics to NPM
+        run: npm publish ./one-app-statics --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+

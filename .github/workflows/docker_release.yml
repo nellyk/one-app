@@ -27,7 +27,7 @@ jobs:
       - name: Docker push prod statics
         run: |
           docker cp $(docker create prod):opt/one-app/build ./one-app-statics
-          node ./scripts/generate-statics-package-json.js
+          docker cp $(docker create prod):opt/one-app/one-app-statics/package.json ./one-app-statics
           npm publish ./one-app-statics --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

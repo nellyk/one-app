@@ -1,6 +1,6 @@
 {
   "name": "@americanexpress/one-app",
-  "version": "5.0.8-rc1",
+  "version": "5.0.9-rc1",
   "description": "One Amex SPA technology stack.",
   "main": "index.js",
   "engines": {
@@ -16,9 +16,10 @@
     "build:bundle": "cross-env NODE_OPTIONS=--max-old-space-size=4096 bundle-one-app",
     "build:server": "babel src --out-dir lib --ignore \"**/__mocks__\"",
     "build:artifacts:statics": "node scripts/build-static-assets-artifact.js",
-    "build": "concurrently \"npm run build:bundle\" \"npm run build:server\" -n build:bundle,build:server --kill-others-on-fail",
+    "build": "concurrently \"npm run build:bundle\" \"npm run build:server\" \"npm run build:static-package-json\" -n build:bundle,build:server --kill-others-on-fail",
     "build:prod-sample": "concurrently \"npm run build:sample-modules\" \"node scripts/build-one-app-docker-setup.js\" -n build-modules,build-app",
     "build:sample-modules": "node scripts/build-sample-modules.js",
+    "build:static-package-json": "node scripts/generate-statics-package-json.js",
     "start:watch": "nodemon --signal SIGTERM --watch src --ext js,jsx --exec babel-node src/server/index.js",
     "prestart:prod-sample": "npm run build:prod-sample",
     "start:prod-sample": "docker-compose -f ./prod-sample/docker-compose.yml up --abort-on-container-exit",

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 5.1.0 (2020-04-01)
+
+
+### Features
+
+* **release:** add release process for one app ([cbed664](https://github.com/americanexpress/one-app/commit/cbed664365c373b05a57fabc186edd38517b7ec3))
+
 ### 5.0.34 (2020-03-31)
 
 ### 5.0.33 (2020-03-31)

@@ -29,11 +29,6 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build production docker image
         run: docker build -t prod .
-      - name: Extract and zip production statics
-        run: |
-          docker cp $(docker create prod):opt/one-app/build ./one-app-statics
-          docker cp $(docker create prod):opt/one-app/one-app-statics/package.json ./one-app-statics
-          zip -r one-app-static-assets one-app-statics/build
       - name: Publish statics to NPM
         run: npm publish ./one-app-statics --access public
         env:

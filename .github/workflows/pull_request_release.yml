@@ -8,7 +8,7 @@ on:
       - labeled
 jobs:
   one-app-release-pull-request:
-    if: github.event.label.name == 'runtest' && github.event_name == 'push'
+    if: github.event.label.name == 'runtest' || github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

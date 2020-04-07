@@ -1,5 +1,4 @@
 [one-app-bundler]: https://github.com/americanexpress/one-app-cli/tree/master/packages/one-app-bundler
-[React]: http://reactjs.org/
 
 <h1 align="center">
   <img src='https://github.com/americanexpress/one-app/raw/master/one-app.png' alt="One App - One Amex" width='50%'/>

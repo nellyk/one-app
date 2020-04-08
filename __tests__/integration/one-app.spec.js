@@ -960,30 +960,35 @@ describe('Tests that can run against either local Docker setup or remote One App
           expect(url).toMatch(/healthy-frank\/simple/);
         });
 
-        test('loadModuleData is not called when navigating to module on client', async () => {
+        test('data loads when navigating to module on client', async () => {
           // start by navigating to ssr-frank without prefetch
           await browser.url(`${appInstanceUrls.browserUrl}/healthy-frank`);
-          const noPrefetchLink = await browser.$('.ssr-frank-link');
-          await noPrefetchLink.click();
+          const regularLink = await browser.$('.ssr-frank-link');
+          await regularLink.click();
+          // need to wait for regular loading to finish;
+          await waitFor(1e3);
           const renderedModuleData = await browser.$('.ssr-frank-loaded-data');
           const moduleStateAsText = await renderedModuleData.getText();
           const moduleState = JSON.parse(moduleStateAsText);
+          // calling loadModuleData calls https://fast.api.frank/posts
           expect(moduleState).toEqual({
             isLoading: false,
-            isComplete: false,
+            isComplete: true,
             error: null,
-            data: null,
+            data: {
+              posts: [{ id: 1, title: 'json-server', author: 'typicode' }],
+              secretMessage: null,
+            },
           });
         });
 
-        test('moduleRoutePrefetch calls loadModuleData', async () => {
+        test('moduleRoutePrefetch loads data in ssr frank on hover', async () => {
           await browser.url(`${appInstanceUrls.browserUrl}/healthy-frank`);
-          const prefetchButton = await browser.$('.prefetch-ssr-frank');
-          const ssrFrankLink = await browser.$('.ssr-frank-link');
-          await prefetchButton.click();
+          const prefetchLink = await browser.$('.prefetch-ssr-frank');
+          await prefetchLink.moveTo();
           // need to wait for prefetching to finish;
           await waitFor(1e3);
-          await ssrFrankLink.click();
+          await prefetchLink.click();
           const loadedData = await browser.$('.ssr-frank-loaded-data');
           const moduleStateAsText = await loadedData.getText();
           const moduleState = JSON.parse(moduleStateAsText);
@@ -1011,7 +1016,7 @@ describe('Tests that can run against either local Docker setup or remote One App
         test('uses language from the language pack to render on the initial page load', async () => {
           await browser.url(`${appInstanceUrls.browserUrl}/demo/cultured-frankie`);
           const greetingMessage = await browser.$('#greeting-message');
-          await waitFor(200);
+          await waitFor(1000);
           expect(await greetingMessage.getText()).toBe(
             'Hello, my name is Frankie and I am in the United States!'
           );
@@ -1022,13 +1027,13 @@ describe('Tests that can run against either local Docker setup or remote One App
           const greetingMessage = await browser.$('#greeting-message');
           const localeSelector = await browser.$('#locale-selector');
           await localeSelector.selectByVisibleText('en-CA');
-          await waitFor(200);
+          await waitFor(1000);
           expect(await greetingMessage.getText()).toBe(
             'Hello, my name is Frankie and I am in Canada!'
           );
-          await waitFor(200);
+          await waitFor(1000);
           await localeSelector.selectByVisibleText('es-MX');
-          await waitFor(200);
+          await waitFor(1000);
           expect(await greetingMessage.getText()).toBe(
             'Hola! Mi nombre es Frankie y estoy en Mexico!'
           );

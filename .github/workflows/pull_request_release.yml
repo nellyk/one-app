@@ -1,8 +1,7 @@
-name: one-app-release
+name: One App Release Pull Request
 on:
-  push:
-    branches:
-      - master
+  schedule:
+  - cron: "0 16 * * 3"
 jobs:
   one-app-release-pull-request:
     runs-on: ubuntu-latest
@@ -17,22 +16,22 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - name: new one-app release
+      - name: One App release
         id: vars
         run: |
           NODE_ENV=development npm ci
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "one.amex@aexp.com"
+          git config --local user.name "OneAmexBot"
           npm run release
-      - name: Create Pull Request
+      - name: Create release pull request
         uses: peter-evans/create-pull-request@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: One App Release Changes
-          committer: GitHub Action <action@github.com>
-          title: One App Release Changes
-          body: This is an auto-generated PR for One App release changes. Please review this PR and merge it using this convention for a release to be initiated. Please close this PR to stop a release from being initiated
-          labels: release, automated pr,skip-release-drafter
-          reviewers: nellyk
-          branch: release-automated
+          token: ${{ secrets.PA_TOKEN }}
+          commit-message: One App Prepare Release
+          committer: 'OneAmexBot <one.amex@aexp.com>'
+          author: 'OneAmexBot <one.amex@aexp.com>'
+          title: 'One App Prepare Release'
+          body: 'This is an auto-generated pull request for One App release changes. Please review this PR and merge it for a release to be initiated. Please close this PR to stop a release from being initiated.'
+          labels: release,automated pr,skip-release-drafter
+          branch: prepare-release
           base: master

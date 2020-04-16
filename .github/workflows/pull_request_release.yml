@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+  repository_dispatch:
+    types: [prepare-release-command]
 jobs:
   one-app-release-pull-request:
     runs-on: ubuntu-latest

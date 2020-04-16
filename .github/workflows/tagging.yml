@@ -27,7 +27,7 @@ jobs:
           git config --local user.email "one.amex@aexp.com"
           git config --local user.name "OneAmexBot"
           echo ${tagversion}
-          git tag ${tagversion}
+          git tag v${tagversion}
           git push origin --tags
           echo ::set-output name=action_tag::${tagversion}
       - name: Trigger Image Publishing

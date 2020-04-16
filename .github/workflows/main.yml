@@ -1,13 +1,19 @@
 name: Slash Command Dispatch
 on:
   issue_comment:
-    types: [edited]
+    # Type "edited" added here for test purposes. Where possible, avoid 
+    # using to prevent processing unnecessary events.
+    types: [created, edited]
 jobs:
   slashCommandDispatch:
     runs-on: ubuntu-latest
     steps:
+      # Basic configuration
       - name: Slash Command Dispatch
         uses: peter-evans/slash-command-dispatch@v1
         with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          commands: deploy, integration-test, build-docs
+          token: ${{ secrets.PA_TOKEN }}
+          reaction-token: ${{ secrets.GITHUB_TOKEN }}
+          commands: hello-world-local, ping-local
+          permission: none
+          issue-type: pull-request

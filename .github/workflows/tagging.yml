@@ -20,7 +20,7 @@ jobs:
       - name: get tag version
         run: |
           echo ::set-env name=tagversion::$( sed -e 's#.*: \(\)#\1#' <<< ${commitmsg} )
-          echo $tagversion
+          echo v$tagversion
       - name: set tag version
         id: set_tag_version
         run: |

@@ -36,7 +36,7 @@
     "set-middleware": "set-middleware",
     "set-dev-endpoints": "node scripts/set-dev-endpoints.js",
     "postinstall": "npm run build",
-    "release": "standard-version"
+    "release": "standard-version --commit-all"
   },
   "repository": {
     "type": "git",

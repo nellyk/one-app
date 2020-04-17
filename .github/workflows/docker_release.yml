@@ -19,12 +19,12 @@ jobs:
       - name: Set env
         id: set_tag_version
         run: | 
-          if [ "${{ github.event.client_payload.tagversion }}" != "" ]; then
+          if [[ "${{ github.event.client_payload.tagversion }}" != "" ]]; then
            echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
           elif [[ ${{ github.event.ref }} =~ (^refs\/tags\/v[0-9]+\.[0-9]+\.[0-9]+)(-.*)? ]]; then
            echo ::set-output name=tagversion::$(echo $GITHUB_REF | cut -d / -f 3)
-          else  
-           echo "Incorrect tag provided, please check and try again"
+          else 
+           echo "::error::Incorrect tag provided, please check and try again"
           echo $tagversion
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin

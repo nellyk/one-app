@@ -25,6 +25,7 @@ jobs:
            echo ::set-output name=tagversion::$(echo $GITHUB_REF | cut -d / -f 3)
           else 
            echo "::error::Incorrect tag provided, please check and try again"
+          fi 
           echo $tagversion
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin

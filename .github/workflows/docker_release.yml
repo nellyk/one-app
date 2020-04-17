@@ -21,7 +21,7 @@ jobs:
         run: | 
           if [[ "${{ github.event.client_payload.tagversion }}" != "" ]]; then
            echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
-          elif [[ ${{ github.event.ref }} =~ (^refs\/tags\/v[0-9]+\.[0-9]+\.[0-9]+)(-.*)? ]]; then
+          elif [[ $GITHUB_REF =~ (^refs\/tags\/v[0-9]+\.[0-9]+\.[0-9]+)(-.*)? ]]; then
            echo ::set-output name=tagversion::$(echo $GITHUB_REF | cut -d / -f 3)
           else 
            echo "::error::Incorrect tag provided, please check and try again"

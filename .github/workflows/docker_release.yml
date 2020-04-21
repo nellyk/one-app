@@ -25,7 +25,7 @@ jobs:
            echo ::set-env name=tagversion::$(egrep -o '(v[0-9]+\.[0-9]+\.[0-9]+)(-.*)?' <<< $GITHUB_REF)
           else
            echo "::error::Incorrect tag provided, please check and try again"
-           echo "::stop-commands::pause-logging"
+           exit 1
           fi
           echo $tagversion
       - name: Set env

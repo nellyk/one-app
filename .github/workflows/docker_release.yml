@@ -32,6 +32,7 @@ jobs:
         run: | 
              echo ${{ steps.set_tag_version.outputs.tagversion }}
              echo ${{ steps.set_tag_version.outputs.tagversion }}
+             echo $tagversion
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build production docker image

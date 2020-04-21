@@ -23,6 +23,8 @@ jobs:
            echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
           elif [[ $GITHUB_REF != "" ]]; then
            echo ::set-env name=tagversion::$(egrep -o '(v[0-9]+\.[0-9]+\.[0-9]+)(-.*)?' <<< $GITHUB_REF)
+            if [[$tagversion == ""]]; then
+             exit 1
           else
            echo "::error::Incorrect tag provided, please check and try again"
            exit 1

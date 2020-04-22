@@ -30,7 +30,7 @@ jobs:
           echo $tagversion
       - name: Check Tag Version 
         run: |
-          if [[ "${{ github.event.client_payload.tagversion }}" == ""  ]]; then
+          if [[ "${{ steps.set_tag_version.outputs.tagversion }}" == ""  ]]; then
           echo "::error::Incorrect tag provided, please provide a tag with the correct format and try again"
           exit 1
           fi

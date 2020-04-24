@@ -50,7 +50,8 @@ jobs:
       - name: Docker tag version
         id: docker_tag_version
         run: |  
-          echo ::set-output name=dockertag::${{ steps.set_tag_version.outputs.tagversion//v }}
+          echo dockertag=${{ steps.set_tag_version.outputs.tagversion }}
+          echo ::set-output name=dockertag::${dockertag//v}
           echo $dockertag
       - name: Tag Docker Images
         run: |

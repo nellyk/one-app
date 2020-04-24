@@ -47,14 +47,23 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Build development docker image
         run: docker build -t dev . --target=development
+      - name: Docker tag version
+        id: docker_tag_version
+        run: |  
+          echo ::set-output name=dockertag::${{ steps.set_tag_version.outputs.tagversion//v }}
+          echo $dockertag
       - name: Tag Docker Images
         run: |
-          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.docker_tag_version.outputs.dockertag}}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.docker_tag_version.outputs.dockertag }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app:latest
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Push Docker Images
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_tag_version.outputs.tagversion }}
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.tagversion }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.docker_tag_version.outputs.dockertag }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.docker_tag_version.outputs.dockertag }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:latest
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

@@ -33,6 +33,11 @@ jobs:
           echo "::error::Incorrect tag provided, please provide a tag with the correct format and try again"
           exit 1
           fi
+      - name: Docker tag version
+        id: set_docker_tag_version
+        run: |  
+          echo ::set-output name=dockertag::${{ steps.set_tag_version.outputs.tagversion//v }}
+          echo $dockertag     
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build production docker image
@@ -47,16 +52,10 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Build development docker image
         run: docker build -t dev . --target=development
-      - name: Docker tag version
-        id: docker_tag_version
-        run: |  
-          echo dockertag=${{ steps.set_tag_version.outputs.tagversion }}
-          echo ::set-output name=dockertag::${dockertag//v}
-          echo $dockertag
       - name: Tag Docker Images
         run: |
-          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.docker_tag_version.outputs.dockertag}}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.docker_tag_version.outputs.dockertag }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.dockertag}}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.dockertag }}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app:latest
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Push Docker Images

@@ -36,8 +36,10 @@ jobs:
       - name: Docker tag version
         id: set_docker_tag_version
         run: |  
-          echo ::set-output name=dockertag::${{ steps.set_tag_version.outputs.tagversion//v }}
-          echo $dockertag     
+          echo tagversion= ${{ steps.set_tag_version.outputs.tagversion}}
+          get_docker_tag=${tagversion#"v"}
+          echo ::set-output name=dockertag::get_docker_tag
+          echo $dockertag
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build production docker image

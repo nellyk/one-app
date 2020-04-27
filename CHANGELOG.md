@@ -1,39 +1,5 @@
-# Changelog
+# [5.0.0-rc.1](https://github.com/americanexpress/one-app/compare/v5.0.15-prerelease...v5.0.0-rc.1) (2020-04-27)
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### 5.0.15 (2020-04-26)
 
-### 5.0.14 (2020-04-26)
 
-### 5.0.13 (2020-04-26)
-
-### 5.0.12 (2020-04-26)
-
-### 5.0.11 (2020-04-24)
-
-### 5.0.10 (2020-04-24)
-
-### 5.0.9 (2020-04-22)
-
-### 5.0.8 (2020-04-22)
-
-### 5.0.7 (2020-04-22)
-
-### 5.0.6 (2020-04-22)
-
-### 5.0.5 (2020-04-22)
-
-### 5.0.4 (2020-04-21)
-
-### 5.0.3 (2020-04-21)
-
-### [5.0.3-1](https://github.com/americanexpress/one-app/compare/v5.0.2-prerelease...v5.0.3-1) (2020-04-21)
-
-### [5.0.3-0](https://github.com/americanexpress/one-app/compare/v5.0.2-prerelease...v5.0.3-0) (2020-04-21)
-
-### 5.0.2 (2020-04-17)
-
-### 5.0.1 (2020-04-17)
-
-## 5.0.0 (2020-04-17)

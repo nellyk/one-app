@@ -1,6 +1,6 @@
 {
   "name": "@americanexpress/one-app",
-  "version": "5.0.15",
+  "version": "5.0.0-rc.1",
   "description": "One Amex SPA technology stack.",
   "main": "index.js",
   "engines": {
@@ -36,7 +36,8 @@
     "set-middleware": "set-middleware",
     "set-dev-endpoints": "node scripts/set-dev-endpoints.js",
     "postinstall": "npm run build",
-    "release": "standard-version -i -n -a"
+    "release:changelog":"npx conventional-changelog-cli conventional-changelog -p angular -si CHANGELOG.md",
+    "release": "npx standard-version -i -n -a"
   },
   "repository": {
     "type": "git",
@@ -130,6 +131,7 @@
     "babel-eslint": "^10.0.3",
     "chokidar": "^3.3.0",
     "concurrently": "^5.0.0",
+    "conventional-changelog-cli": "^2.0.31",
     "cross-env": "^6.0.3",
     "danger": "^9.2.8",
     "enzyme": "^3.10.0",
@@ -177,7 +179,8 @@
       "one-app-statics/package.json"
     ],
     "skip": {
-      "tag": true
+      "tag": true,
+      "changelog": true
     }
   }
 }

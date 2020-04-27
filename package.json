@@ -36,7 +36,7 @@
     "set-middleware": "set-middleware",
     "set-dev-endpoints": "node scripts/set-dev-endpoints.js",
     "postinstall": "npm run build",
-    "release:changelog": "conventional-changelog-cli conventional-changelog -p angular -si CHANGELOG.md",
+    "release:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "release": "standard-version -i -n -a"
   },
   "repository": {

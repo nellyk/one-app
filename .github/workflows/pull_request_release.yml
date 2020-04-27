@@ -26,7 +26,6 @@ jobs:
           git config --local user.email "one.amex@aexp.com"
           git config --local user.name "OneAmexBot"
           npm run release:changelog
-          git add .
           git commit -m "chore(release): add changelog"
           npm run release
       - name: Create release pull request

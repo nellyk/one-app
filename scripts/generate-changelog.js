@@ -38,6 +38,6 @@ function runSpawn(...args) {
   }
 }
 
-runSpawn('conventional-changelog -p angular -i CHANGELOG.md -s');
+runSpawn('conventional-changelog', ['-p', 'angular', '-i', 'CHANGELOG.md', '-s']);
 runSpawn('git', ['add' ,'--all']);
 runSpawn('git', ['commit', '-m', `docs(changelog): update changelog to v${appVersion}`, '--no-verify']);

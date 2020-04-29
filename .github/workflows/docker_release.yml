@@ -18,16 +18,16 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Set env
         id: set_tag_version
-        run: | 
+        run: |
           #Checks for when a valid tag is manually pushed
           if [[ $GITHUB_REF != "" && "${{ github.event.client_payload.tagversion }}" == "" ]]; then
-          echo ::set-output name=tagversion::$(egrep -o '(v[0-9]+\.[0-9]+\.[0-9]+)(-.*)?' <<< $GITHUB_REF)
+          echo ::set-output name=tagversion::$(egrep -o '(v[0-9]+\.[0-9]+\.[0-9]+)(-\S*)?' <<< $GITHUB_REF)
           else
           #Runs when a tag is triggered automatically
           echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
           fi
           echo $tagversion
-      - name: Check Tag Version 
+      - name: Check Tag Version
         run: |
           if [[ "${{ steps.set_tag_version.outputs.tagversion }}" == ""  ]]; then
           echo "::error::Incorrect tag provided, please provide a tag with the correct format and try again"
@@ -35,10 +35,9 @@ jobs:
           fi
       - name: Docker tag version
         id: set_docker_tag_version
-        run: |  
+        run: |
           tagversion=${{ steps.set_tag_version.outputs.tagversion}}
-          res=
-          echo ::set-output name=dockertag::$(sed 's/^v//' <<< "$tagversion")
+          echo ::set-output name=dockertag::$(sed 's/^v*//' <<< "$tagversion")
       - name: Docker tag version
         run: echo $get_docker_tag
       - name: Docker login
@@ -59,7 +58,7 @@ jobs:
         run: |
           docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.dockertag}}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.dockertag }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app:latest
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:latest
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Push Docker Images
         run: |

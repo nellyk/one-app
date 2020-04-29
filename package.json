@@ -1,6 +1,6 @@
 {
   "name": "@americanexpress/one-app",
-  "version": "5.0.0-rc.1",
+  "version": "5.0.0-rc.2",
   "description": "One Amex SPA technology stack.",
   "main": "index.js",
   "engines": {
@@ -36,7 +36,7 @@
     "set-middleware": "set-middleware",
     "set-dev-endpoints": "node scripts/set-dev-endpoints.js",
     "postinstall": "npm run build",
-    "release:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "release:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "standard-version"
   },
   "repository": {

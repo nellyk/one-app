@@ -28,14 +28,14 @@ jobs:
           echo -e "$(head -3 CHANGELOG.md)\n\n$(node_modules/.bin/conventional-changelog -p angular)\n\n$(tail -n +3 CHANGELOG.md)" > CHANGELOG.md
           git add .
           git commit -m "docs(changelog): update"
-          npm run release
+          npm run release -- --no-verify 
       - name: Create release pull request
         uses: peter-evans/create-pull-request@v2
         with:
           token: ${{ secrets.PA_TOKEN }}
           commit-message: One App Prepare Release
-          committer: 'nellyk'
-          author: 'nellyk'
+          committer: 'OneAmexBot <one.amex@aexp.com>'
+          author: 'OneAmexBot <one.amex@aexp.com>'
           title: 'One App Prepare Release'
           body: 'This is an auto-generated pull request for One App release changes. Please review this PR and merge it for a release to be initiated. Please close this PR to stop a release from being initiated.'
           labels: release,automated pr,skip-release-drafter

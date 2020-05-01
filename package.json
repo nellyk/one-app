@@ -181,7 +181,7 @@
       "tag": false,
       "push": false,
       "commitMessage": "chore(release): release v${version}",
-      "commit":
+      "commit": true
     },
     "npm": {
       "publish": false

@@ -37,7 +37,7 @@
     "set-dev-endpoints": "node scripts/set-dev-endpoints.js",
     "postinstall": "npm run build",
     "release:changelog": "conventional-changelog -p angular -r 0 -si CHANGELOG.md && git add CHANGELOG.md",
-    "release": "release-it"
+    "release": "release-it --dry-run"
   },
   "repository": {
     "type": "git",

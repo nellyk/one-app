@@ -1,6 +1,10 @@
 <a name="5.0.3-0"></a>
 ## [5.0.3-0](https://github.com/americanexpress/one-app/compare/v5.0.1...v5.0.3-0) (2020-05-04)
 
+<a name="5.0.3"></a>
+## 5.0.3 (2020-05-04)
+
+
 
 ### Bug Fixes
 
@@ -53,6 +57,3 @@
 * **SecurityHeaders:** add Referrer-Policy override ([#97](https://github.com/americanexpress/one-app/issues/97)) ([6e16cc9](https://github.com/americanexpress/one-app/commit/6e16cc9))
 * **stateConfig:** make state config more flexible ([#38](https://github.com/americanexpress/one-app/issues/38)) ([72539a0](https://github.com/americanexpress/one-app/commit/72539a0)), closes [#20](https://github.com/americanexpress/one-app/issues/20)
 * **statics:** generate one-app-statics package ([#82](https://github.com/americanexpress/one-app/issues/82)) ([8b65858](https://github.com/americanexpress/one-app/commit/8b65858))
-
-
-

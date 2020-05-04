@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 12.x
       - name: Bump files 
-        id: bump files
+        id: bump_files
         run: npm run release -- --no-verify 
       - name: One App release
         id: vars

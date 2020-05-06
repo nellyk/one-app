@@ -36,8 +36,9 @@
     "set-middleware": "set-middleware",
     "set-dev-endpoints": "node scripts/set-dev-endpoints.js",
     "postinstall": "npm run build",
-    "release:changelog": "release:changelog": "echo -e \"$(head -3 CHANGELOG.md)\n\n$(node_modules/.bin/conventional-changelog -p angular)\n\n$(tail -n +4 CHANGELOG.md)\" > CHANGELOG.md",
-    "release": "standard-version"
+    "release:standard-version": "standard-version -- --no-verify",
+    "release:changelog": "echo -e \"$(head -3 CHANGELOG.md)\n\n$(node_modules/.bin/conventional-changelog -p angular)\n\n$(tail -n +4 CHANGELOG.md)\" > CHANGELOG.md",
+    "release": "release:standard-version && release:changelog"
   },
   "repository": {
     "type": "git",
@@ -96,6 +97,10 @@
     "ip": "^1.1.5",
     "lean-intl": "^4.2.2",
     "matcher": "^2.1.0",
+    "opossum": "^5.0.0",
+    "opossum-prometheus": "^0.1.0",
+    "opossum": "^5.0.0",
+    "opossum-prometheus": "^0.1.0",
     "opossum": "^5.0.0",
     "opossum-prometheus": "^0.1.0",
     "pidusage": "^2.0.17",

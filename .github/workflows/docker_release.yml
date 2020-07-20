@@ -38,15 +38,15 @@ jobs:
         run: |
           tagversion=${{ steps.set_tag_version.outputs.tagversion}}
           echo ::set-output name=dockertag::$(sed 's/^v*//' <<< "$tagversion")
+          echo ::set-output name=major_version:: $tagversion | cut -d. -f1
+          echo ::set-output name=minor_version:: $tagversion | cut -d. -f2
+          echo ::set-output name=patch_version:: $tagversion | cut -d. -f3
       - name: Docker tag version
         run: echo $get_docker_tag
-      - name: Build and push Docker  production images
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: ${{ secrets.DOCKER_USER }}/one-app
-          tags: prod
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
+      - name: Build production docker image
+        run: docker build -t prod .
       - name: Extract and zip production statics
         run: |
           docker cp $(docker create prod):opt/one-app/build ./one-app-statics
@@ -61,12 +61,24 @@ jobs:
         run: |
           docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.dockertag}}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.dockertag }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.major_version}}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.major_version }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.minor_version}}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.minor_version }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.patch_version}}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.patch_version }}
           docker tag prod ${{ secrets.DOCKER_USER }}/one-app:latest
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Push Docker Images
         run: |
           docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.dockertag}}
           docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.dockertag}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.major_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.major_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.minor_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.minor_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ steps.set_docker_tag_version.outputs.patch_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_tag_version.outputs.patch_version}}
           docker push ${{ secrets.DOCKER_USER }}/one-app:latest
           docker push ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Create Release

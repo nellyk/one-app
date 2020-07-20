@@ -51,10 +51,10 @@ jobs:
         run: |
           docker cp $(docker create prod):opt/one-app/build ./one-app-statics
           zip -r one-app-static-assets one-app-statics/build
-      - name: Publish statics to NPM
-        run: npm publish ./one-app-statics --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      # - name: Publish statics to NPM
+      #   run: npm publish ./one-app-statics --access public
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Build development docker image
         run: docker build -t dev . --target=development
       - name: Tag Docker Images

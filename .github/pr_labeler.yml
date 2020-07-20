@@ -1,5 +1,4 @@
 feature: ['feature/*', 'feat/*']
-fix: fix/*
+fix: ['fix/*', 'bug/*']
 chore: chore/*
 documentation: docs/*
-fix: bug/*

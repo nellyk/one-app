@@ -43,9 +43,12 @@ jobs:
       - name: Extract sem versions
         id: get_sem_version
         run: |
-          echo ::set-output name=major_version:: ${{ steps.set_docker_tag_version.outputs.dockertag}} | cut -d'.' -f1
-          echo ::set-output name=minor_version:: ${{ steps.set_docker_tag_version.outputs.dockertag}} | cut -d'.' -f2
-          echo ::set-output name=patch_version:: ${{ steps.set_docker_tag_version.outputs.dockertag}} | cut -d'.' -f3 
+            MAJOR="$(echo ${{ steps.set_docker_tag_version.outputs.dockertag}} | cut -d'.' -f1)"
+            MINOR="$(echo ${{ steps.set_docker_tag_version.outputs.dockertag}} | cut -d'.' -f2)"
+            PATCH="$(echo ${{ steps.set_docker_tag_version.outputs.dockertag}} | cut -d'.' -f3)"
+            echo ::set-output name=major_version::${MAJOR}
+            echo ::set-output name=minor_version::${MINOR}
+            echo ::set-output name=patch_version::${PATCH}
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build production docker image

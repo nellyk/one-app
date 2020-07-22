@@ -56,7 +56,7 @@ jobs:
           repository: ${{ github.repository }}
           mediaType: '{"previews": ["everest"]}'
           event_type: "one-app-docker-prod-build"
-          client_payload: '{"docker_tag_version": "${{ steps.set_docker_tag_version.outputs.dockertag }}"}'
+          client_payload: '{"dockertagversion": "${{ steps.set_docker_tag_version.outputs.dockertag }}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
 

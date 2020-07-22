@@ -23,8 +23,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.set_tag_version.outputs.tagversion }}
-          release_name: Release ${{ steps.set_tag_version.outputs.tagversion }}
+          tag_name: ${{ github.event.client_payload.docker_tag_version }}
+          release_name: Release ${{ github.event.client_payload.docker_tag_version }}
           draft: false
           prerelease: false
       - name: Upload Release Assets

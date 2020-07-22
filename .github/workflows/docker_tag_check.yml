@@ -1,4 +1,4 @@
-name: One App Docker Release
+name: Docker Tag Version Check
 on:
   push:
     tags:
@@ -7,7 +7,7 @@ on:
     types: [one-app-docker-release]
 jobs:
   one-app-docker-release:
-    name: Build and Deploy to Docker
+    name: Docker Tag Version Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,13 +50,13 @@ jobs:
           prerelease: false
       - name: Trigger Image Publishing
         uses: octokit/request-action@v2.x
-        id: dispatch_one-app-docker-release
+        id: dispatch_one-app-docker-prod-build
         with:
           route: POST /repos/:repository/dispatches
           repository: ${{ github.repository }}
           mediaType: '{"previews": ["everest"]}'
           event_type: "one-app-docker-prod-build"
-          client_payload: '{"dockertagversion": "${{ steps.set_docker_tag_version.outputs.dockertag }}"}'
+          client_payload: '{"docker_tag_version": "${{ steps.set_docker_tag_version.outputs.dockertag }}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}
 

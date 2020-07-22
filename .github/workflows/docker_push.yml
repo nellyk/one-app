@@ -1,10 +1,10 @@
-name: One App Statics Publish to NPM
+name: One App Docker Images Push
 on:
   repository_dispatch:
     types: [one-app-push-images]
 jobs:
   one-app-push-images:
-    name: Build Production Image
+    name: One App Docker Images Push
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

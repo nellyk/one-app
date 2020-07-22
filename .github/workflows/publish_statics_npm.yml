@@ -1,0 +1,30 @@
+name: One App Statics Publish to NPM
+on:
+  repository_dispatch:
+    types: [publish-statics-npm]
+jobs:
+  publish-statics-npm:
+    name: Build Production Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Publish statics to NPM
+        run: npm publish ./one-app-statics --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Trigger Image Publishing
+        uses: octokit/request-action@v2.x
+        id: dispatch_one_app_docker_dev_build
+        with:
+          route: POST /repos/:repository/dispatches
+          repository: ${{ github.repository }}
+          mediaType: '{"previews": ["everest"]}'
+          event_type: "one-app-docker-dev-build"
+          client_payload: '{"docker_tag_version": "${{ github.event.client_payload.docker_tag_version }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

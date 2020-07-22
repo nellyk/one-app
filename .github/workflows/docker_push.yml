@@ -1,0 +1,27 @@
+name: One App Statics Publish to NPM
+on:
+  repository_dispatch:
+    types: [one-app-push-images]
+jobs:
+  one-app-push-images:
+    name: Build Production Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
+      - name: Push Docker Images
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ github.event.client_payload.major_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ github.event.client_payload.major_version}}.${{ github.event.client_payload.minor_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}.${{ github.event.client_payload.minor_version }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:${{ github.event.client_payload.docker_tag_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app:latest
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:latest

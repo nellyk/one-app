@@ -1,0 +1,34 @@
+name: One App Production Image Build and Static Extraction
+on:
+  repository_dispatch:
+    types: [one-app-docker-prod-build]
+jobs:
+  one-app-docker-prod-build:
+    name: Build Production Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
+      - name: Build production docker image
+        run: docker build -t prod .
+      - name: Extract and zip production statics
+        run: |
+          docker cp $(docker create prod):opt/one-app/build ./one-app-statics
+          zip -r one-app-static-assets one-app-statics/build
+      - name: Trigger Image Publishing
+        uses: octokit/request-action@v2.x
+        id: dispatch_publish_statics_npm
+        with:
+          route: POST /repos/:repository/dispatches
+          repository: ${{ github.repository }}
+          mediaType: '{"previews": ["everest"]}'
+          event_type: "publish-statics-npm"
+          client_payload: '{"docker_tag_version": "${{ github.event.client_payload.docker_tag_version }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

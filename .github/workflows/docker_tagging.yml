@@ -1,0 +1,48 @@
+name: One App Prod and Dev Images Tagging
+on:
+  repository_dispatch:
+    types: [one-app-tag-images]
+jobs:
+  one-app-tag-images:
+    name: Build Production Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
+      - name: Docker tag version
+        run: echo $get_docker_tag
+      - name: Extract sem versions
+        id: get_sem_version
+        run: |
+            MAJOR="$(echo ${{ github.event.client_payload.docker_tag_version}} | cut -d'.' -f1)"
+            MINOR="$(echo ${{ github.event.client_payload.docker_tag_version}} | cut -d'.' -f2)"
+            PATCH="$(echo ${{ github.event.client_payload.docker_tag_version}} | cut -d'.' -f3)"
+            echo ::set-output name=major_version::${MAJOR}
+            echo ::set-output name=minor_version::${MINOR}
+      - name: Tag Docker Images
+        run: |
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.get_sem_version.outputs.major_version}}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.get_sem_version.outputs.major_version }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ steps.get_sem_version.outputs.major_version}}.${{ steps.get_sem_version.outputs.minor_version}}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.get_sem_version.outputs.major_version}}.${{ steps.get_sem_version.outputs.minor_version }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ github.event.client_payload.docker_tag_version}}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version }}
+          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:latest
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
+      - name: Trigger Image Publishing
+        uses: octokit/request-action@v2.x
+        id: dispatch_one_app_push_images
+        with:
+          route: POST /repos/:repository/dispatches
+          repository: ${{ github.repository }}
+          mediaType: '{"previews": ["everest"]}'
+          event_type: "one-app-push-images"
+          client_payload: '{"docker_tag_version": "${{ github.event.client_payload.docker_tag_version }}","major_version":"${{ steps.get_sem_version.outputs.major_version}}","minor_version":"${{ steps.get_sem_version.outputs.minor_version}}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

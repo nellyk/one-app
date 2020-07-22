@@ -4,9 +4,9 @@ on:
     tags:
       - '*'
   repository_dispatch:
-    types: [one-app-docker-release]
+    types: [one-app-docker-tag-check]
 jobs:
-  one-app-docker-release:
+  one-app-docker-tag-check:
     name: Docker Tag Version Check
     runs-on: ubuntu-latest
     steps:

@@ -33,8 +33,6 @@ jobs:
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.get_sem_version.outputs.major_version}}.${{ steps.get_sem_version.outputs.minor_version }}
           docker tag prod ${{ secrets.DOCKER_USER }}/one-app:${{ github.event.client_payload.docker_tag_version}}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version }}
-          docker tag prod ${{ secrets.DOCKER_USER }}/one-app:latest
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Trigger Image Publishing
         uses: octokit/request-action@v2.x
         id: dispatch_one_app_push_images

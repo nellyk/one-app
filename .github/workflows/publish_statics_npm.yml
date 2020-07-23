@@ -13,6 +13,10 @@ jobs:
         with:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
+      - name: Extract and zip production statics
+        run: |
+          docker cp $(docker create prod):opt/one-app/build ./one-app-statics
+          zip -r one-app-static-assets one-app-statics/build
       - name: Publish statics to NPM
         run: npm publish ./one-app-statics --access public
         env:
@@ -37,14 +41,3 @@ jobs:
           asset_path: ./one-app-static-assets.zip
           asset_name: one-app-static-assets.zip
           asset_content_type: application/zip
-      - name: Trigger Image Publishing
-        uses: octokit/request-action@v2.x
-        id: dispatch_one_app_docker_dev_build
-        with:
-          route: POST /repos/:repository/dispatches
-          repository: ${{ github.repository }}
-          mediaType: '{"previews": ["everest"]}'
-          event_type: "one-app-docker-dev-build"
-          client_payload: '{"docker_tag_version": "${{ github.event.client_payload.docker_tag_version }}"}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

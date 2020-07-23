@@ -25,3 +25,14 @@ jobs:
           docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version}}
           docker push ${{ secrets.DOCKER_USER }}/one-app:latest
           docker push ${{ secrets.DOCKER_USER }}/one-app-dev:latest
+      - name: Trigger Image Publishing
+        uses: octokit/request-action@v2.x
+        id: dispatch_publish_statics_npm
+        with:
+          route: POST /repos/:repository/dispatches
+          repository: ${{ github.repository }}
+          mediaType: '{"previews": ["everest"]}'
+          event_type: "publish-statics-npm"
+          client_payload: '{"docker_tag_version": "${{ github.event.client_payload.docker_tag_version }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

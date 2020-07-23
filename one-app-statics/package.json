@@ -1,6 +1,6 @@
 {
   "name": "one-app-statics-tests",
-  "version": "5.2.7",
+  "version": "5.2.8",
   "description": "One App Static Assets",
   "main": "index.js",
   "scripts": {

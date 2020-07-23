@@ -23,6 +23,12 @@ jobs:
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}.${{ github.event.client_payload.minor_version }}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version }}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
+      - name: Push Docker Images
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}.${{ github.event.client_payload.minor_version }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Trigger Image Publishing
         uses: octokit/request-action@v2.x
         id: dispatch_one_app_push_images

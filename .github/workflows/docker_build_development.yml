@@ -17,14 +17,20 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build development docker image
         run: docker build -t dev . --target=development
+      - name: Tag Docker Images
+        run: |
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}.${{ github.event.client_payload.minor_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Trigger Image Publishing
         uses: octokit/request-action@v2.x
-        id: dispatch_one_app_tag_images
+        id: dispatch_one_app_push_images
         with:
           route: POST /repos/:repository/dispatches
           repository: ${{ github.repository }}
           mediaType: '{"previews": ["everest"]}'
-          event_type: "one-app-tag-images"
-          client_payload: '{"docker_tag_version": "${{ github.event.client_payload.docker_tag_version }}"}'
+          event_type: "one-app-push-images"
+          client_payload: '{"docker_tag_version": "${{ github.event.client_payload.docker_tag_version }}","major_version":"${{ steps.get_sem_version.outputs.major_version}}","minor_version":"${{ steps.get_sem_version.outputs.minor_version}}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

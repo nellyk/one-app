@@ -13,6 +13,8 @@ jobs:
         with:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Extract and zip production statics
         run: |
           docker cp $(docker create prod ${{ secrets.DOCKER_USER }}/one-app:${{ github.event.client_payload.docker_tag_version }}):opt/one-app/build ./one-app-statics

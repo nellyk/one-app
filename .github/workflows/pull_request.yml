@@ -3,7 +3,7 @@ on: pull_request
 jobs:
   one-app-tests:
     name: Run One App Tests
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1

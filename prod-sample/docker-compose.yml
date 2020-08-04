@@ -11,6 +11,7 @@ services:
         - https_proxy
         - no_proxy
     # tags the built image as:
+    user: node
     image: one-app:at-test
     expose:
       - "8443"
@@ -36,6 +37,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+    user: node    
     ports:
       - "8000:80"
     networks:
@@ -49,6 +51,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+    user: node    
     ports:
       - "8001:80"
     entrypoint:
@@ -67,6 +70,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+    user: node    
     ports:
       - "8002:80"
     entrypoint:

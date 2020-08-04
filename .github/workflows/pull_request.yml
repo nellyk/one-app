@@ -25,6 +25,10 @@ jobs:
       #   run: npm run test:lint && npm run test:unit
       - name: Docker version
         run: docker-compose --version
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
+      - name: Build development docker image
+        run: docker build -t one-app:at-test .
       - name: Integration tests
         run: |
-          bash ./scripts/run-integration-tests.travis.sh -x
+          ONE_DANGEROUSLY_SKIP_ONE_APP_IMAGE_BUILD=true npm run test:integration

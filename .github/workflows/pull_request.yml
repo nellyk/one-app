@@ -4,6 +4,8 @@ jobs:
   one-app-tests:
     name: Run One App Tests
     runs-on: ubuntu-latest
+    container: 
+      options: --user node
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1

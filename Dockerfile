@@ -41,7 +41,7 @@ WORKDIR /opt/one-app
 RUN chown node:node /opt/one-app
 CMD ["node", "lib/server"]
 COPY --from=builder --chown=node:node /opt/one-app/development ./
-
+#testing
 # production image
 # last so that it's the default image artifact
 FROM node:12-alpine as production

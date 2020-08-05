@@ -42,7 +42,6 @@ RUN chown node:node /opt/one-app
 USER node
 CMD ["node", "lib/server"]
 COPY --from=builder --chown=node:node /opt/one-app/development ./
-RUN usermod -u 1000 www-data
 
 # production image
 # last so that it's the default image artifact

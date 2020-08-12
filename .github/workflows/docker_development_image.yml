@@ -20,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Docker Image Versions
+        id: set_docker_version
         run: |
           #Runs when the action is triggered by the dispatch function
           if [[ "${{ github.event.inputs.docker_tag_version }}" == "" ]]; then
@@ -44,15 +45,15 @@ jobs:
         run: docker build -t dev . --target=development
       - name: Tag Docker Images
         run: |
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.major_version }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.major_version}}.${{ steps.set_tag_version.outputs.minor_version }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.docker_tag_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version}}.${{ steps.set_tag_version.outputs.minor_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.docker_tag_version }}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Push Docker Images
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}.${{ github.event.client_payload.minor_version }}
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version}}.${{ steps.set_tag_version.outputs.minor_version }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.docker_tag_version}}
           docker push ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Trigger Image Publishing
         uses: octokit/request-action@v2.x

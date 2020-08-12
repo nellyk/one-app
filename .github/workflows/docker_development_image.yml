@@ -22,15 +22,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Docker Image Versions
+        run: |
+          #Runs when the action is triggered by the dispatch function
+          if [[ "${{ github.event.inputs.docker_tag_version }}" == "" ]]; then
+          echo ::set-output name=docker_version::github.event.client_payload.docker_tag_version
+          echo ::set-output name=major_version::github.event.client_payload.major_version
+          echo ::set-output name=minor_version::github.event.client_payload.minor_version
+          else
+          #Runs when a tag is triggered manually
+          echo ::set-output name=docker_version::github.event.inputs.docker_tag_version
+          echo ::set-output name=major_version::github.event.inputs.major_version
+          echo ::set-output name=minor_version::github.event.inputs.minor_version
+          fi
+          echo $major_version
+          echo $minor_version
+          echo $docker_tag_version
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build development docker image
         run: docker build -t dev . --target=development
       - name: Tag Docker Images
         run: |
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.major_version}}.${{ github.event.client_payload.minor_version }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ github.event.client_payload.docker_tag_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.major_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.major_version}}.${{ steps.set_tag_version.outputs.minor_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_tag_version.outputs.docker_tag_version }}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Push Docker Images
         run: |

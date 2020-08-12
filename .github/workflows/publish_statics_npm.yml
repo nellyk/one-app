@@ -23,7 +23,7 @@ jobs:
       - name: Tag Version
         id: set_tag_version
         run: |
-          if [[ "${{ github.event.inputs.tag_version }}" != "" ]]
+          if [[ "${{ github.event.inputs.tag_version }}" == "" ]]
           then
           echo ::set-output name=tagversion::${{ github.event.client_payload.docker_tag_version }}
           else

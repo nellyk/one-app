@@ -23,11 +23,11 @@ jobs:
           if [[ $GITHUB_REF != "" && "${{ github.event.client_payload.tagversion }}" == "" ]]; 
           then
           echo ::set-output name=tagversion::$(egrep -o '(v[0-9]+\.[0-9]+\.[0-9]+)(-\S*)?' <<< $GITHUB_REF)
-          elif [[ "${{ github.event.inputs.tag_version }}" == "" ]]
-          #Runs when a tag is triggered automatically
-          then
-          echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
           else
+          echo ::set-output name=tagversion::${{ github.event.client_payload.tagversion }}
+          fi
+          if [[ "${{ github.event.inputs.tag_version }}" != "" ]]
+          then
           echo ::set-output name=tagversion::${{ github.event.inputs.tag_version }}
           fi
           echo $tagversion

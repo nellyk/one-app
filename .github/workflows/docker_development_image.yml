@@ -5,15 +5,12 @@ on:
     major_version:
      description: 'Major Version Number'     
      required: true
-     default: 'warning'
     minor_version:
      description: 'Minor Version Number'     
      required: true
-     default: 'warning'
     docker_tag_version:
-     description: 'Docker Tag Version'     
-     required: true
-     default: 'warning'  
+     description: 'Sementic Version'     
+     required: true 
   repository_dispatch:
     types: [one-app-docker-dev-build]
 jobs:

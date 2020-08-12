@@ -46,14 +46,14 @@ jobs:
       - name: Tag Docker Images
         run: |
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version}}.${{ steps.set_tag_version.outputs.minor_version }}
-          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.docker_tag_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version}}.${{ steps.set_docker_version.outputs.minor_version }}
+          docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.docker_version }}
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Push Docker Images
         run: |
           docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version}}
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version}}.${{ steps.set_tag_version.outputs.minor_version }}
-          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.docker_tag_version}}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version}}.${{ steps.set_docker_version.outputs.minor_version }}
+          docker push ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.docker_version}}
           docker push ${{ secrets.DOCKER_USER }}/one-app-dev:latest
       - name: Trigger Image Publishing
         uses: octokit/request-action@v2.x

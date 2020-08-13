@@ -63,6 +63,6 @@ jobs:
           repository: ${{ github.repository }}
           mediaType: '{"previews": ["everest"]}'
           event_type: "publish-statics-npm"
-          client_payload: '{"docker_tag_version": "${{ github.event.client_payload.docker_tag_version }}"}'
+          client_payload: '{"docker_tag_version": "${{ steps.set_docker_version.outputs.docker_version }}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.PA_TOKEN }}

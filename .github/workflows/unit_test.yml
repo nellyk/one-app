@@ -1,0 +1,23 @@
+name: One App Tests
+on: pull_request
+jobs:
+  one-app-unit-tests:
+    name: Run One App Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x,14.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: npm install
+        run: NODE_ENV=development npm ci
+      - name: npm unit-test
+        run: |
+          npm run test:lint && npm run test:unit && npm run test:danger && npm run test:git-history

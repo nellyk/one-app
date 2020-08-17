@@ -2,12 +2,6 @@ name: One App Development Image Build
 on:
   workflow_dispatch:
    inputs:
-    major_version:
-     description: 'Major Version Number'     
-     required: true
-    minor_version:
-     description: 'Minor Version Number'     
-     required: true
     docker_tag_version:
      description: 'Sementic Version'     
      required: true 
@@ -30,8 +24,10 @@ jobs:
           else
           #Runs when a tag is triggered manually
           echo ::set-output name=docker_version::${{ github.event.inputs.docker_tag_version }}
-          echo ::set-output name=major_version::${{ github.event.inputs.major_version }}
-          echo ::set-output name=minor_version::${{ github.event.inputs.minor_version }}
+          MAJOR="$(echo ${{ github.event.inputs.docker_tag_version}} | cut -d'.' -f1)"
+          MINOR="$(echo ${{ github.event.inputs.docker_tag_version}} | cut -d'.' -f2)"
+          echo ::set-output name=major_version::${MAJOR}
+          echo ::set-output name=minor_version::${MINOR}
           fi
       - name: Build development docker image
         run:  |

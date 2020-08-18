@@ -17,14 +17,7 @@ jobs:
           node-version: 12.x
       - name: npm install
         run: NODE_ENV=development npm ci
-      # - name: Danger
-      #   run: NODE_ENV=production npm run test:danger
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Unit tests and linting
-      #   run: npm run test:lint && npm run test:unit
-      - name: Docker version
-        run: docker-compose --version
-      - name: Integration tests
-        run: |
-          bash ./scripts/run-integration-tests.travis.sh -x
+      - name: Build docker image
+        run: docker build -t one-app:at-test .
+      - name: Run Integration Tests
+        run: ONE_DANGEROUSLY_SKIP_ONE_APP_IMAGE_BUILD=true npm run test:integration

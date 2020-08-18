@@ -1,8 +1,10 @@
-name: One App Tests
-on: pull_request
+name: One App Integration Tests - PR
+on: 
+ pull_request:
+   types: [assigned, opened, synchronize, reopened, edited]
 jobs:
-  one-app-tests:
-    name: Run One App Tests
+  one-app-integration-pr:
+    name:  One App Integration Tests - PR
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

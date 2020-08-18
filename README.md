@@ -21,7 +21,7 @@ experiences. Leave the tooling to us and focus on what matters - delivering perf
 ## 👩‍💻 Hiring 👨‍💻
 
 Want to get paid for your contributions to `one-app`?
-> Send your resume to oneamex.careers@aexp.co
+> Send your resume to oneamex.careers@aexp.com
 
 ## 📖 Table of Contents
 

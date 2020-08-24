@@ -39,6 +39,7 @@ EXPOSE 3002
 EXPOSE 3005
 WORKDIR /opt/one-app
 RUN chown node:node /opt/one-app
+USER node
 CMD ["node", "lib/server"]
 COPY --from=builder --chown=node:node /opt/one-app/development ./
 
@@ -51,5 +52,6 @@ ENV NODE_ENV=production
 EXPOSE 3000
 EXPOSE 3005
 WORKDIR /opt/one-app
+USER node
 CMD ["node", "lib/server"]
 COPY --from=builder --chown=node:node /opt/one-app/production ./

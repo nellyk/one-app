@@ -4,6 +4,7 @@
 # builds as we do not have to run apk installs for alpine.
 FROM node:12 as builder
 WORKDIR /opt/build
+ARG user
 RUN npm install -g npm@6.12.1 --registry=https://registry.npmjs.org
 COPY --chown=node:node ./ /opt/build
 # npm ci does not run postinstall with root account
@@ -39,7 +40,7 @@ EXPOSE 3002
 EXPOSE 3005
 WORKDIR /opt/one-app
 RUN chown node:node /opt/one-app
-USER node
+USER $user
 CMD ["node", "lib/server"]
 COPY --from=builder --chown=node:node /opt/one-app/development ./
 
@@ -52,6 +53,6 @@ ENV NODE_ENV=production
 EXPOSE 3000
 EXPOSE 3005
 WORKDIR /opt/one-app
-USER node
+USER $user
 CMD ["node", "lib/server"]
 COPY --from=builder --chown=node:node /opt/one-app/production ./

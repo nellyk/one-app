@@ -51,7 +51,7 @@ ENV NODE_ENV=production
 # see src/server/config/env/runtime.js
 EXPOSE 3000
 EXPOSE 3005
-USER node
 WORKDIR /opt/one-app
+USER node
 CMD ["node", "lib/server"]
 COPY --from=builder --chown=node:node /opt/one-app/production ./

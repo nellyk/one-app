@@ -38,7 +38,7 @@ jobs:
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build development docker image
-        run: docker build -t dev . --target=development --build-arg USER=node
+        run: docker build -t dev . --target=development
       - name: Tag Docker Images
         run: |
           docker tag dev ${{ secrets.DOCKER_USER }}/one-app-dev:${{ steps.set_docker_version.outputs.major_version }}

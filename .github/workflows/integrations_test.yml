@@ -22,7 +22,7 @@ jobs:
       - name: npm install
         run: NODE_ENV=development npm ci
       - name: Build docker image
-        run: docker build -t one-app:at-test . --build-arg user=root
+        run: docker build -t one-app:at-test . --build-arg USER=root
       - name: Build Sample Modules
         run:  |
          npm run build:sample-modules -- --archive-built-artifacts --bundle-statics-origin=https://one-app-statics.surge.sh

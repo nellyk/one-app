@@ -16,7 +16,7 @@ jobs:
       - name: Docker login
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build production docker image
-        run: docker build -t prod . --build-arg USER=node
+        run: docker build -t prod .
       - name: Extract sem versions
         id: get_sem_version
         run: |

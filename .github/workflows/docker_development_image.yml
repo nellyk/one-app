@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
    inputs:
     docker_tag_version:
-     description: 'Sementic Version'     
-     required: true 
+     description: 'Sementic Version'
+     required: true
   repository_dispatch:
     types: [one-app-docker-dev-build]
 jobs:
@@ -31,8 +31,8 @@ jobs:
           fi
       - name: Build development docker image
         run:  |
-          echo "Tags: ${{ github.event.inputs.tags }}" 
-          echo "tag: ${{ github.event.inputs.docker_tag_version }}" 
+          echo "Tags: ${{ github.event.inputs.tags }}"
+          echo "tag: ${{ github.event.inputs.docker_tag_version }}"
           echo "major-version: ${{ github.event.inputs.major_version }}"
           echo "minor-version: ${{ github.event.inputs.minor_version }}"
       - name: Docker login

@@ -2,7 +2,7 @@ name: Commit Linting
 on: 
  pull_request:
   branches-ignore:
-      - '*dependabot'
+      - 'dependabot/**'
 jobs:
   one-app-unit-tests:
     name: Commit Linting

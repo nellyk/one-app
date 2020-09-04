@@ -1,6 +1,9 @@
--e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e # Changelog
+-e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e -e # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [5.2.22](https://github.com/americanexpress/one-app/compare/v5.2.21...v5.2.22) (2020-09-04)
+
 
 <a name="5.2.21"></a>
 ## [5.2.21](https://github.com/americanexpress/one-app/compare/v5.2.19...v5.2.21) (2020-09-03)

@@ -32,7 +32,6 @@ RUN NODE_ENV=production npm run build && \
 FROM node:12-alpine as development
 ARG USER
 ENV USER ${USER:-node}
-RUN echo $USER
 ENV NODE_ENV=development
 # exposing these ports as they are default for all the local dev servers
 # see src/server/config/env/runtime.js
@@ -51,7 +50,6 @@ COPY --from=builder --chown=node:node /opt/one-app/development ./
 FROM node:12-alpine as production
 ARG USER
 ENV USER ${USER:-node}
-RUN echo $USER
 ENV NODE_ENV=production
 # exposing these ports as they are defaults for one app and the prom metrics server
 # see src/server/config/env/runtime.js

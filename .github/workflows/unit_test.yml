@@ -1,7 +1,5 @@
 name: One App Unit and Lint Tests
-on: 
- pull_request:
-   types: [assigned, opened, synchronize, reopened, edited]
+on: pull_request
 jobs:
   one-app-unit-tests:
     name: One App Unit and Lint Tests
@@ -10,7 +8,12 @@ jobs:
       matrix:
         node-version: [12.x, 14.x]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -23,11 +26,10 @@ jobs:
             ${{ runner.os }}-node-
       - name: npm install
         run: NODE_ENV=development npm ci
-      - name: Danger
-        run: NODE_ENV=production npm run test:danger
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: npm unit test
         run:  npm run test:unit
       - name: npm lint test
         run:  npm run test:lint
+      - name: npm commit lint
+        run: npm run test:git-history
+   

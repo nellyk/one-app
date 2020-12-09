@@ -1,7 +1,8 @@
 name: PR Labeler
 on:
-  pull_request:
-    types: [opened]
+  push:
+    branches:
+      - master
 
 jobs:
   pr-labeler:

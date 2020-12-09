@@ -2,6 +2,99 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# 8.0.0 (2020-12-09)
+
+
+### Bug Fixes
+
+* **circuit:** disable circuit breaker in development ([#307](https://github.com/americanexpress/one-app/issues/307)) ([1d87967](https://github.com/americanexpress/one-app/commit/1d879672520c8095d2c667f46cf50e64c1d51496))
+* **clientErrorLogger:** format console error message ([#382](https://github.com/americanexpress/one-app/issues/382)) ([03da190](https://github.com/americanexpress/one-app/commit/03da190baa91aea1044de06bdc72e4e50f3ec420))
+* **clientModuleMapCache:** set base url for module bundle type ([#215](https://github.com/americanexpress/one-app/issues/215)) ([95ca35f](https://github.com/americanexpress/one-app/commit/95ca35f6b6f59c9a9862db77ddb369470b500bae))
+* **conditionallyAllowCors:** nested array of cors origins ([#14](https://github.com/americanexpress/one-app/issues/14)) ([75ba553](https://github.com/americanexpress/one-app/commit/75ba55336f79afe53459070946a77877c2513fe4))
+* **devCdn:** proxy modules through dev cdn ([#48](https://github.com/americanexpress/one-app/issues/48)) ([20a910a](https://github.com/americanexpress/one-app/commit/20a910a8b370f702c87960520cdd9068fbbb6caf))
+* **dockerfile:** set user after chown ([#305](https://github.com/americanexpress/one-app/issues/305)) ([105ddbf](https://github.com/americanexpress/one-app/commit/105ddbf7be36f20fee9f345895d941b88d37020d))
+* **fetch:** upgrade bundler to add fetch polyfills ([#289](https://github.com/americanexpress/one-app/issues/289)) ([f81e8c5](https://github.com/americanexpress/one-app/commit/f81e8c5333d024702b1fcc5ca8e1388784a7971f))
+* **healthyFrank:** change onHover for onMouseOver ([#104](https://github.com/americanexpress/one-app/issues/104)) ([ff3c87d](https://github.com/americanexpress/one-app/commit/ff3c87dd41e185624948408e966e9797a73611c2))
+* **holocron:** does not check for global state on component mount ([e36b343](https://github.com/americanexpress/one-app/commit/e36b3437af6eba494583eb1e02e8f0e1370cc847))
+* **integration-tests:** simplify franks burgers ([4a90b98](https://github.com/americanexpress/one-app/commit/4a90b9859f19d974b6724e41fe2c10e6392a553a))
+* **metrics:** health check ([#274](https://github.com/americanexpress/one-app/issues/274)) ([352bbd3](https://github.com/americanexpress/one-app/commit/352bbd3f09c47514fea193398fa6b06f1249a174))
+* **module-map:** missing baseUrl to module map on server ([#206](https://github.com/americanexpress/one-app/issues/206)) ([c6a251e](https://github.com/americanexpress/one-app/commit/c6a251e39eb9890b13c470cfe70e50ad7785d78e))
+* **pollModuleMap:** ensure single pollModuleMap ([#284](https://github.com/americanexpress/one-app/issues/284)) ([5503a03](https://github.com/americanexpress/one-app/commit/5503a035a55feaade9344d651aea0531e2ac0c37))
+* **provided-externals:** logs warning for child modules ([#32](https://github.com/americanexpress/one-app/issues/32)) ([24a9be4](https://github.com/americanexpress/one-app/commit/24a9be4ceaeaf2b2e5f6e8dc60d98cd9643e2ede))
+* **pwa:** reset config when not supplied ([#283](https://github.com/americanexpress/one-app/issues/283)) ([6784c7c](https://github.com/americanexpress/one-app/commit/6784c7c9e2b977b036ad87ef17e2f0b2e919a740))
+* **pwa/icons:** correct base url ([c6fbd58](https://github.com/americanexpress/one-app/commit/c6fbd588119959118131deeb95ccc80ac8903b67))
+* **react:** update React to 16.13.1 ([#109](https://github.com/americanexpress/one-app/issues/109)) ([917e55a](https://github.com/americanexpress/one-app/commit/917e55a8deebf561c81762c4c9e88015760cac6a))
+* **release/change-log:** remove -e added ([#211](https://github.com/americanexpress/one-app/issues/211)) ([250113b](https://github.com/americanexpress/one-app/commit/250113b0199084efe33e8ef6e7839fb7f6e992aa))
+* **scripts:** drop-module ([#75](https://github.com/americanexpress/one-app/issues/75)) ([8e9de45](https://github.com/americanexpress/one-app/commit/8e9de457966544a0589dfd1eb74eac1969b16ddc))
+* **scripts/watch:** ensure missing sw scripts ([69f5f1b](https://github.com/americanexpress/one-app/commit/69f5f1b37e1cdee475ca662d4bfa3d3ed3bdf0b1))
+* **security:** specify min TLS version ([bc460aa](https://github.com/americanexpress/one-app/commit/bc460aa51e27a51d8d4e78d73321d43c593d1c9e))
+* **send-html:** ignore async chunks ([49a3826](https://github.com/americanexpress/one-app/commit/49a382699a41bbac77c48863d7603b43c23ef387))
+* **server:** changes to allow for dev proxy usage ([#54](https://github.com/americanexpress/one-app/issues/54)) ([6c6631c](https://github.com/americanexpress/one-app/commit/6c6631c3061d0d7d2426e2f90a754df5d67b524f))
+* **stateConfig:** incorrect env var for dev-proxy port ([#209](https://github.com/americanexpress/one-app/issues/209)) ([3620a1a](https://github.com/americanexpress/one-app/commit/3620a1a67b27c43ce241c2e2c21b8e10a24582eb))
+* **stateConfig:** use ip when useHost flag is passed ([#327](https://github.com/americanexpress/one-app/issues/327)) ([4ca50c4](https://github.com/americanexpress/one-app/commit/4ca50c466c5b56af90d7671204101225644d8423))
+* **stateConfig:** use localhost rather than ip for dev ([#63](https://github.com/americanexpress/one-app/issues/63)) ([de051d9](https://github.com/americanexpress/one-app/commit/de051d9f0917bcb65a948b13487306248a1a3319))
+* **tests/integration:** offline cache timing ([20c85e6](https://github.com/americanexpress/one-app/commit/20c85e66e103f5ebee26821f8bc7616e2e633e33))
+* **typo:** circuit breaker “function” input ([#372](https://github.com/americanexpress/one-app/issues/372)) ([e1e74b9](https://github.com/americanexpress/one-app/commit/e1e74b9424b8fd573ba81eabb02e0984a8104081))
+* **utils:** replace watchLocalModules cdn-url string to be ip/port ([#17](https://github.com/americanexpress/one-app/issues/17)) ([0650b16](https://github.com/americanexpress/one-app/commit/0650b166ef7825ef58a3e8a0b2ee69b48a1d8129))
+* **vulnerabilities:** dependency updates ([#5](https://github.com/americanexpress/one-app/issues/5)) ([9b35457](https://github.com/americanexpress/one-app/commit/9b35457afd1acadf6f37880f3091c0724db42b4c))
+* **watchLocalModules:** fix watcher crashing due to build errors ([#306](https://github.com/americanexpress/one-app/issues/306)) ([9290d92](https://github.com/americanexpress/one-app/commit/9290d921572f3dedb719097d6c7beaf594acc5b5))
+* **watchLocalModules:** wait for change to finish ([#285](https://github.com/americanexpress/one-app/issues/285)) ([a27d4ba](https://github.com/americanexpress/one-app/commit/a27d4ba3af68c0bac29650be9220dadf0461227a))
+* **workflows:** removed greeting action ([#103](https://github.com/americanexpress/one-app/issues/103)) ([663fc0c](https://github.com/americanexpress/one-app/commit/663fc0c0a7b325339cba1cedb5e4cfe00fb97b7a))
+
+
+### chore
+
+* **deps:** upgrade react-helmet ([ac65593](https://github.com/americanexpress/one-app/commit/ac65593f0eae6bc79901cbeaeba8e6756ddbafa5))
+
+
+### Features
+
+* **all:** initial oss release ([0c64dcd](https://github.com/americanexpress/one-app/commit/0c64dcd7b76018868c37101e50ef2228c25a3eec))
+* **app-config:** pwa validation ([fb10509](https://github.com/americanexpress/one-app/commit/fb10509343d2dd178cb9cb857598f4c419111b1d))
+* **build/server:** only transpile for node ([#161](https://github.com/americanexpress/one-app/issues/161)) ([48c25cd](https://github.com/americanexpress/one-app/commit/48c25cd7d1455a86f97aa8af1932b912c9243c99))
+* **createCircuitBreaker:** log circuit breaker activity ([acb96c3](https://github.com/americanexpress/one-app/commit/acb96c315db663474fa99b0fc929719586deacf9))
+* **createRequestHtmlFragment:** implemented circuit breaker ([#111](https://github.com/americanexpress/one-app/issues/111)) ([e10f707](https://github.com/americanexpress/one-app/commit/e10f707b2532c5f9fdd8d9db44afffa848343817))
+* **createTimeoutFetch:** replaced @americanexpress/fetch-enhancers ([c12db6f](https://github.com/americanexpress/one-app/commit/c12db6fe8474f194c35a135d6a899ef375ad512f))
+* **csp:** add local development domains to csp ([#42](https://github.com/americanexpress/one-app/issues/42)) ([4952d28](https://github.com/americanexpress/one-app/commit/4952d286c8ae5750a0b723deb117a1d96d1fb0f2))
+* **csp:** loosen development to use localhost or ip '*' ([#331](https://github.com/americanexpress/one-app/issues/331)) ([1bad920](https://github.com/americanexpress/one-app/commit/1bad920d673ab72d61baf3abe77f28cdc360f696))
+* **danger:** validate lockfiles ([#7](https://github.com/americanexpress/one-app/issues/7)) ([1e560f7](https://github.com/americanexpress/one-app/commit/1e560f71090253072cc37b43a4143e819f6dc88e))
+* **dep:** add create-shared-react-context ([#112](https://github.com/americanexpress/one-app/issues/112)) ([24217c6](https://github.com/americanexpress/one-app/commit/24217c624d55f55e80a5c702c2599f8b76ac2469))
+* **fetch:** switch to cross-fetch instead of isomorphic-fetch ([#101](https://github.com/americanexpress/one-app/issues/101)) ([82155d5](https://github.com/americanexpress/one-app/commit/82155d5d63344409559c42fd0783ab8b4b012bc3))
+* **holocron:** holocron 1.1.0 ([5e84384](https://github.com/americanexpress/one-app/commit/5e84384d17a452edd66a058dcdb905182021e5c3))
+* **initClient:** removed StrictMode, resolves [#74](https://github.com/americanexpress/one-app/issues/74) ([#126](https://github.com/americanexpress/one-app/issues/126)) ([890a7e8](https://github.com/americanexpress/one-app/commit/890a7e848ab7e99323f7bf61f12e8bf1919b39b6))
+* **loadModule:** optional cache bust key ([#37](https://github.com/americanexpress/one-app/issues/37)) ([b34b1bd](https://github.com/americanexpress/one-app/commit/b34b1bd57fc5c49c683d771e24bafc4dae38d0e3))
+* **make-promises-safe:** treat unhandledRejection as uncaught exception ([#174](https://github.com/americanexpress/one-app/issues/174)) ([5fe0245](https://github.com/americanexpress/one-app/commit/5fe0245c6adfe3faa4c4c66ec1ed4a075be8824e))
+* **module-text:** remove tags and render text only ([0a1aa68](https://github.com/americanexpress/one-app/commit/0a1aa687201ce9b434a18f54b31fbca33ae5cde0))
+* **one-app:** removed tenancy or tenant instances ([#69](https://github.com/americanexpress/one-app/issues/69)) ([1b6a5e5](https://github.com/americanexpress/one-app/commit/1b6a5e51ccd8aff48666c7f6cbc52bfaa3306a37))
+* **one-app-dev-cdn:** pass use-host flag ([#138](https://github.com/americanexpress/one-app/issues/138)) ([b7202ca](https://github.com/americanexpress/one-app/commit/b7202ca2b6107cf0532a40d22cc6bde3466ec754))
+* **one-app-router:** update to 1.1.0 ([#137](https://github.com/americanexpress/one-app/issues/137)) ([0139c6c](https://github.com/americanexpress/one-app/commit/0139c6c384185ccbf5e4dff97f73d2ecf2561ff0))
+* **one-service-worker:** integration with one-app ([3a76625](https://github.com/americanexpress/one-app/commit/3a76625e1ab479e08b63c39b92aed05c3299bd57))
+* **prod-sample:** deploy module util ([#308](https://github.com/americanexpress/one-app/issues/308)) ([#323](https://github.com/americanexpress/one-app/issues/323)) ([becfca5](https://github.com/americanexpress/one-app/commit/becfca55db4b260ec5a696f0d85d571623687e66))
+* **pwa/cache:** add resource caching and invalidation ([a85045c](https://github.com/americanexpress/one-app/commit/a85045c4622f20ea3e3f66f4d352ba05f270d73f))
+* **pwa/cache:** clear when disabled ([e84eddd](https://github.com/americanexpress/one-app/commit/e84eddd40a2c99a6b87928e58b5fcd40768e9edd))
+* **pwa/offline:** html shell ([e8a1dd2](https://github.com/americanexpress/one-app/commit/e8a1dd2deb32d78cbb1096cbeec254a7f79ba3db))
+* **pwa/web-manifest:** add middleware & config support ([9077f17](https://github.com/americanexpress/one-app/commit/9077f17f91370f72c7ce1b5da5a7e08aae4fe259))
+* **react:** update react to 16.14.0 ([be92d96](https://github.com/americanexpress/one-app/commit/be92d96ef46a54b408d71111728ece84af093b9e))
+* **react:** update to latest version of react ([690e02b](https://github.com/americanexpress/one-app/commit/690e02bd8689b7091d71b618bf925606f0fff040))
+* **release:**  one-app release process ([#90](https://github.com/americanexpress/one-app/issues/90)) ([72ea38b](https://github.com/americanexpress/one-app/commit/72ea38bc033195e0db1a3b4d220c1e1093dc3264))
+* **routes:** added default 404 route ([d8f1bad](https://github.com/americanexpress/one-app/commit/d8f1bad4379f8ec1198b4f31c30e17d4db1fe5e4))
+* **runtime:** add csp reporting url env var ([#81](https://github.com/americanexpress/one-app/issues/81)) ([f6faa53](https://github.com/americanexpress/one-app/commit/f6faa53bbdbf3f841c4609bbdc1fad5922ffe901))
+* **SecurityHeaders:** add Referrer-Policy override ([#97](https://github.com/americanexpress/one-app/issues/97)) ([6e16cc9](https://github.com/americanexpress/one-app/commit/6e16cc97926095f85ca786fd56c8cf825aad6c6e))
+* **sendHtml:** allow custom error page ([#281](https://github.com/americanexpress/one-app/issues/281)) ([73eb8a7](https://github.com/americanexpress/one-app/commit/73eb8a72e7f20e66d5a6313c3a103b20c0ed0143))
+* **sendHtml/legacy:** only check user agent for ie ([#147](https://github.com/americanexpress/one-app/issues/147)) ([cc0aa95](https://github.com/americanexpress/one-app/commit/cc0aa958d52d0c21bc6ed76559ba82ba54ce09fb))
+* **server:** use native V8 heapdump ([794ff35](https://github.com/americanexpress/one-app/commit/794ff355b4b89457937aa081651aee10c48d8464))
+* **serverError:** add additional logging for server errors ([#282](https://github.com/americanexpress/one-app/issues/282)) ([60825f8](https://github.com/americanexpress/one-app/commit/60825f8cf7aaa8b3919cc98b7cddf3ddb52a7607))
+* **ssrServer:** added readiness check route ([#248](https://github.com/americanexpress/one-app/issues/248)) ([a342e71](https://github.com/americanexpress/one-app/commit/a342e71e99a1485616392c074c1d1459c058d7e2))
+* **ssrServer:** enable urlencoded post data ([#313](https://github.com/americanexpress/one-app/issues/313)) ([3481dc0](https://github.com/americanexpress/one-app/commit/3481dc0bbe26865b234df01fa2effc60ad41634e))
+* **stateConfig:** make state config more flexible ([#38](https://github.com/americanexpress/one-app/issues/38)) ([72539a0](https://github.com/americanexpress/one-app/commit/72539a013c7905bf75f3b8126f1bee579ceb6477)), closes [#20](https://github.com/americanexpress/one-app/issues/20)
+* **statics:** generate one-app-statics package ([#82](https://github.com/americanexpress/one-app/issues/82)) ([8b65858](https://github.com/americanexpress/one-app/commit/8b658587d6cdced36b245642374b70af79a67b69))
+
+
+### BREAKING CHANGES
+
+* **deps:** requires react-helmet v6
+
+
 # 7.0.0 (2020-12-09)
 
 

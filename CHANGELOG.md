@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [5.12.0](https://github.com/americanexpress/one-app/compare/v5.4.3...v5.12.0) (2021-02-04)
+
+
+### Bug Fixes
+
+* **docs:** rename pwa recipe ([0f2f054](https://github.com/americanexpress/one-app/commit/0f2f0546944e0c5f2a0481daa83f897ec13d294d))
+* **holocron-module-route:** udpates returns promises ([#413](https://github.com/americanexpress/one-app/issues/413)) ([6aa086a](https://github.com/americanexpress/one-app/commit/6aa086a88c34709d818fabab05e3cfb68b5aeeb6))
+* **tagging/workflow:** use ::set-output over ::set-env ([#390](https://github.com/americanexpress/one-app/issues/390)) ([b6874f7](https://github.com/americanexpress/one-app/commit/b6874f7d1590cfc330d365398687586e81a98a24))
+
+
+### Features
+
+* **createCircuitBreaker:** increase healthcheck interval to 5s ([#397](https://github.com/americanexpress/one-app/issues/397)) ([6f7f222](https://github.com/americanexpress/one-app/commit/6f7f2221fbfcdb6838f3f74226e73437687f5c9c))
+* **metrics:** track intl cache size ([#406](https://github.com/americanexpress/one-app/issues/406)) ([de65e10](https://github.com/americanexpress/one-app/commit/de65e10e385fe40642f5e6e42ad4f0e29c5d439e))
+
+
 ## [5.11.1](https://github.com/americanexpress/one-app/compare/v5.11.0...v5.11.1) (2021-02-03)
 
 

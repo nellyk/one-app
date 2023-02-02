@@ -11,7 +11,7 @@
     "@americanexpress/one-app-ducks": "^4.0.0",
     "holocron": "^1.1.0",
     "lodash.get": "^4.4.2",
-    "prop-types": "^15.5.9",
+    "prop-types": "^15.8.1",
     "react": "^16.0.0",
     "react-redux": "^7.1.1",
     "redux": "^4.0.4"

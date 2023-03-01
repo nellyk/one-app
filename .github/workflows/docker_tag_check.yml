@@ -15,7 +15,7 @@ jobs:
     name: Docker Tag Version Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set env
         id: set_tag_version
         run: |

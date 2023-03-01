@@ -12,7 +12,7 @@ jobs:
     name: One App Development Image Build and Push
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Docker Image Versions
         id: set_docker_version
         run: |

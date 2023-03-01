@@ -108,7 +108,7 @@
     "opossum-prometheus": "^0.3.0",
     "pidusage": "^2.0.21",
     "prom-client": "^12.0.0",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",

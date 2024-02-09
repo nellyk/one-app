@@ -110,7 +110,7 @@
     "flat": "^5.0.2",
     "helmet": "^7.0.0",
     "holocron": "^1.9.2",
-    "holocron-module-route": "^1.7.0",
+    "holocron-module-route": "^1.9.2",
     "immutable": "^4.1.0",
     "ip": "^1.1.8",
     "joi": "^17.6.0",

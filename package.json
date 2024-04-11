@@ -193,7 +193,7 @@
     "rollup": "^4.13.0",
     "service-worker-mock": "^2.0.5",
     "standard-version": "^9.5.0",
-    "tar": "^6.2.0",
+    "tar": "^6.2.1",
     "thread-stream": "^2.4.1",
     "webdriverio": "^7.36.0"
   },

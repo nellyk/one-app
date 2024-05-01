@@ -122,7 +122,7 @@
     "fastify-plugin": "^4.5.1",
     "flat": "^5.0.2",
     "holocron": "^1.10.2",
-    "holocron-module-route": "^1.10.2",
+    "holocron-module-route": "^1.10.3",
     "immutable": "^4.3.5",
     "joi": "^17.12.2",
     "lean-intl": "^4.2.2",
